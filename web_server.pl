@@ -23,6 +23,7 @@ use strict;
 use warnings ;
 use Socket qw( :DEFAULT :crlf ) ; 
 use POSIX ":sys_wait_h" ; 
+use Data::Dumper;
 
 ################################################################################
 # INSTANCE VARIABLES 
@@ -145,6 +146,8 @@ sub create_child_to_process_request {
 
 sub process_http_request {
     my $client_message = shift; 
+    #jbdebug
+    print Dumper("--client message---",$client_message);
     my $response ; 
 
     if ( $client_message =~ /^GET/ ) {
