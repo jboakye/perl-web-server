@@ -147,7 +147,7 @@ sub create_child_to_process_request {
 sub process_http_request {
     my $client_message = shift; 
     #jbdebug
-    &debug_msg"--client message---",$client_message);
+    &debug_msg("--client message---",$client_message);
     my $response ; 
 
     if ( $client_message =~ /^GET/ ) {
