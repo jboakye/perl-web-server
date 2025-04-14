@@ -23,6 +23,7 @@ use strict;
 use warnings ;
 use Socket qw( :DEFAULT :crlf ) ; 
 use POSIX ":sys_wait_h" ; 
+use Data::Dumper;
 
 ################################################################################
 # INSTANCE VARIABLES 
@@ -82,7 +83,7 @@ while ( 1 ) {
 
     my $client_host = gethostbyaddr( $address, AF_INET ) ;
 
-    &debug_msg( "Recieved connection from $client_host on port $input_port on IP address " . inet_ntoa( $address ) ) ; 
+    &debug_msg( "Recieved connection from $client_host on port $input_port on IP address " ,  inet_ntoa( $address ) ) ; 
 
     &create_child_to_process_request( sub {
         local $| = 1;
@@ -109,7 +110,7 @@ while ( 1 ) {
 # if this is commneted out, it is to disable debuggin messages.
 sub debug_msg { 
     # Un-comment the line below to actually see your debug messages
-    #warn join( " ", @_ )  . "\n" ; 
+    warn join( " ", @_ )  . "\n" ; 
 }
 
 
@@ -145,6 +146,8 @@ sub create_child_to_process_request {
 
 sub process_http_request {
     my $client_message = shift; 
+    #jbdebug
+    &debug_msg("--client message---",$client_message);
     my $response ; 
 
     if ( $client_message =~ /^GET/ ) {
